@@ -1,0 +1,111 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:form id="formReferer">
+		<p:panel>
+			<h:panelGrid columns="3">
+				<p:panel id="panel1" header="Keywords">
+					<p:commandLink oncomplete="zoomGraphWidget.show()" title="Zoom In"
+						update=":zoomGraphDialog, :plotImage">
+						<f:setPropertyActionListener
+							target="#{dataReporterController.statsType}" value="pageUrls" />
+						<f:setPropertyActionListener
+							target="#{dataReporterController.dialogHeader}" value="Keywords" />
+						<p:graphicImage value="#{piwikClient.keywords}"
+							style="width:325px;"></p:graphicImage>
+					</p:commandLink>
+				</p:panel>
+				
+				<p:panel id="panel5" header="Entry Page URLs">
+					<p:commandLink oncomplete="zoomGraphWidget.show()" title="Zoom In"
+						update=":zoomGraphDialog, :plotImage">
+						<f:setPropertyActionListener
+							target="#{dataReporterController.statsType}"
+							value="entryPageUrls" />
+						<f:setPropertyActionListener
+							target="#{dataReporterController.dialogHeader}"
+							value="Entry Page URLs" />
+						<p:graphicImage value="#{piwikClient.entryPageUrls}"
+							style="width:325px;"></p:graphicImage>
+					</p:commandLink>
+				</p:panel>
+				
+				<p:panel id="panel7" header="Search Engines">
+					<p:commandLink oncomplete="zoomGraphWidget.show()" title="Zoom In"
+						update=":zoomGraphDialog, :plotImage">
+						<f:setPropertyActionListener
+							target="#{dataReporterController.statsType}" value="searchEngines" />
+						<f:setPropertyActionListener
+							target="#{dataReporterController.dialogHeader}"
+							value="Search Engines" />
+						<p:graphicImage value="#{piwikClient.searchEngines}"
+							style="width:325px;"></p:graphicImage>
+					</p:commandLink>
+				</p:panel>
+				<p:panel id="panel8" header="Referer Type">
+					<p:commandLink oncomplete="zoomGraphWidget.show()" title="Zoom In"
+						update=":zoomGraphDialog, :plotImage">
+						<f:setPropertyActionListener
+							target="#{dataReporterController.statsType}" value="refererType" />
+						<f:setPropertyActionListener
+							target="#{dataReporterController.dialogHeader}"
+							value="Referer Type" />
+						<p:graphicImage value="#{piwikClient.refererType}"
+							style="width:325px;"></p:graphicImage>
+					</p:commandLink>
+				</p:panel>
+				<!--  
+				<p:panel id="panel2" header="Distinct Keywords">
+					<p:commandLink oncomplete="zoomGraphWidget.show()" title="Zoom In"
+						update=":zoomGraphDialog, :plotImage">
+						<f:setPropertyActionListener
+							target="#{dataReporterController.statsType}" value="numberOfDistinctKeywords" />
+						<f:setPropertyActionListener
+							target="#{dataReporterController.dialogHeader}" value="Distinct Keywords" />
+						<p:graphicImage value="#{piwikClient.numberOfDistinctKeywords}"
+							style="width:325px;"></p:graphicImage>
+					</p:commandLink>
+				</p:panel>
+				<p:panel id="panel3" header="Number Of Distinct Websites">
+					<p:commandLink oncomplete="zoomGraphWidget.show()" title="Zoom In"
+						update=":zoomGraphDialog, :plotImage">
+						<f:setPropertyActionListener
+							target="#{dataReporterController.statsType}" value="numberOfDistinctWebsites" />
+						<f:setPropertyActionListener
+							target="#{dataReporterController.dialogHeader}"
+							value="Number Of Distinct Websites" />
+						<p:graphicImage value="#{piwikClient.numberOfDistinctWebsites}"
+							style="width:325px;"></p:graphicImage>
+					</p:commandLink>
+				</p:panel>
+				<p:panel id="panel4" header="Number Of Distinct Websites Urls">
+					<p:commandLink oncomplete="zoomGraphWidget.show()" title="Zoom In"
+						update=":zoomGraphDialog, :plotImage">
+						<f:setPropertyActionListener
+							target="#{dataReporterController.statsType}" value="numberOfDistinctWebsitesUrls" />
+						<f:setPropertyActionListener
+							target="#{dataReporterController.dialogHeader}" value="Number Of Distinct Websites Urls" />
+						<p:graphicImage value="#{piwikClient.numberOfDistinctWebsitesUrls}"
+							style="width:325px;"></p:graphicImage>
+					</p:commandLink>
+				</p:panel>
+				<p:panel id="panel6" header="Urls From Website Id">
+					<p:commandLink oncomplete="zoomGraphWidget.show()" title="Zoom In"
+						update=":zoomGraphDialog, :plotImage">
+						<f:setPropertyActionListener
+							target="#{dataReporterController.statsType}" value="urlsFromWebsiteId" />
+						<f:setPropertyActionListener
+							target="#{dataReporterController.dialogHeader}"
+							value="Page Titles" />
+						<p:graphicImage value="#{piwikClient.urlsFromWebsiteId}"
+							style="width:325px;"></p:graphicImage>
+					</p:commandLink>
+				</p:panel>
+				-->
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+</ui:composition>

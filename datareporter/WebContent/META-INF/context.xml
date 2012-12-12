@@ -1,0 +1,8 @@
+    <Context path="/datareporter" reloadable="true" docBase="work/Catalina/localhost">  
+    
+    	 <Resource name="jdbc/damaroreporterDB" auth="Container"
+           type="javax.sql.DataSource" driverClassName="com.mysql.jdbc.Driver"
+           url="jdbc:mysql://localhost:3306/damaroreporterDB"
+           username="root" password="sudamihPW" maxActive="20" maxIdle="10" maxWait="-1"/>
+           
+    </Context>    

@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="statsForm">
+
+		<p:panel header="Custom Stats" style="margin-bottom:10px;">
+			<h:panelGrid columns="2" cellpadding="5">
+
+				<h:outputText value="Select Stats Module" />
+				<p:selectOneMenu id="api" value="#{customStat.apiModule}">
+					<f:selectItem itemLabel="Select Module" itemValue="" />
+					<f:selectItems value="#{customStat.apiModules}" />
+					<p:ajax update="suburbs"
+						listener="#{customStat.handleModuleChange()}" />
+				</p:selectOneMenu>
+
+				<h:outputText value="Select Stats Action" />
+				<p:selectOneMenu id="suburbs" value="#{customStat.apiAction}">
+					<f:selectItem itemLabel="Select Action" itemValue="" />
+					<f:selectItems value="#{customStat.apiActions}" />
+				</p:selectOneMenu>
+
+				<h:outputText value="From:" />
+				<p:calendar pattern="yyyy-mm-dd" showButtonPanel="true"
+					navigator="true" id="fromCal" value="#{customStat.fromDate}" />
+
+				<h:outputText value="To:" />
+				<p:calendar pattern="yyyy-mm-dd" showButtonPanel="true"
+					navigator="true" id="toCal" value="#{customStat.toDate}" />
+			</h:panelGrid>
+
+			<p:separator />
+
+			<p:commandButton value="Submit"
+				actionListener="#{customStat.processForm}" id="btnSubmit" update=":statsOuputPanel"/>
+
+		</p:panel>
+	</h:form>
+	<!-- 
+	<h:outputText value="#{customStat.statsOutput}" /> 
+	 -->
+	<p:panel header="Output" id="statsOuputPanel">  
+        <pre>
+        	#{customStat.statsOutput}
+        </pre> 
+    </p:panel> 
+
+</ui:composition>

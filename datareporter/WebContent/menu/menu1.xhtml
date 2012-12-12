@@ -1,0 +1,105 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:outputStylesheet name="css/menu1.css" />
+
+	<!--  
+	<div class="container">
+		<div class="row">
+			<div class="fourcol">
+			</div>
+			<div class="fourcol">
+			</div>
+			<div class="fourcol last">
+				<p>
+					<h:form>
+						<ul id="menuUpper">
+							<li onclick="removeClass(this)"><h:outputLink
+									id="registerLink" rendered="#{not loginBean.loggedIn}"
+									value="javascript:void(0)" onclick="registerDialog.show()"
+									title="register">
+									<h:outputLabel value="Register"></h:outputLabel>
+								</h:outputLink></li>
+							<li onclick="removeClass(this)"><h:outputLink id="loginLink"
+									rendered="#{not loginBean.loggedIn}" value="javascript:void(0)"
+									onclick="dlg.show()" title="login">
+									<h:outputLabel value="Login"></h:outputLabel>
+								</h:outputLink></li>
+							<li><h:outputLink id="welcomeLink"
+									rendered="#{loginBean.loggedIn}" title="welcome">
+									<h:outputLabel
+										value="Welcome #{daaSController.currentUser.firstName}"></h:outputLabel>
+								</h:outputLink></li>
+							<li onclick="removeClass(this)"><h:outputLink
+									id="logoutLink" rendered="#{loginBean.loggedIn}"
+									onclick="confirmation.show()" title="logout">
+									<h:outputLabel value="Logout"></h:outputLabel>
+								</h:outputLink></li>
+						</ul>
+					</h:form>
+				</p>
+			</div>
+		</div>
+	</div>
+-->
+	<div class="container" id="middleHeader">
+		<div class="row">
+
+			<div class="tencol">
+				<div class="text1">
+					<span>DaMaRO</span>Data Management <br /> Rollout at Oxford
+				</div>
+
+			</div>
+
+			<div class="twocol last">
+				<h:graphicImage id="headerImgX" value="/resources/gfx/OxLogo1A.png"
+					alt="Oxford logo" />
+			</div>
+		</div>
+	</div>
+	<!-- -->
+
+	<h:form id="lowerMenuForm">
+		<div class="container" >
+			<div class="row">
+				<div class="tencol">
+					<ul id="menuLower">
+						<li class="menu_active" onclick="removeClass(this)">
+							<p:commandButton id="homePageButton" value="Home" styleClass="pButton" update=":homePageInclude" actionListener="#{dataReporterController.setWelcomePage}"/></li>
+						<li onclick="removeClass(this)">
+							<p:commandButton id="browsePageButton" value="Browse DataBank" styleClass="pButton" 
+							update=":homePageInclude" actionListener="#{dataReporterController.setBrowsePage}" />
+						</li>
+						<li onclick="removeClass(this)">
+							<p:commandButton id="actionPageButton" value="Actions" styleClass="pButton" 
+							update=":homePageInclude" actionListener="#{dataReporterController.setActionStatsPage}" />
+						</li>
+						<li onclick="removeClass(this)">
+							<p:commandButton id="refererPageButton" value="Referer" styleClass="pButton" 
+							update=":homePageInclude" actionListener="#{dataReporterController.setRefererStatsPage}"/>
+						</li>
+						<li onclick="removeClass(this)">
+							<p:commandButton id="customStatPageButton" value="Custom" styleClass="pButton" 
+							update=":homePageInclude" actionListener="#{dataReporterController.setCustomStatsPage}"/>
+						</li>
+						<li onclick="removeClass(this)">
+							<p:commandButton id="searchPageButton" value="Search" styleClass="pButton" 
+							update=":homePageInclude" actionListener="#{dataReporterController.setSearchPage}"/>
+						</li>
+					</ul>
+				</div>
+				<div class="twocol last" >
+				</div>
+			</div>
+		</div>
+
+	</h:form>
+
+
+</ui:composition>

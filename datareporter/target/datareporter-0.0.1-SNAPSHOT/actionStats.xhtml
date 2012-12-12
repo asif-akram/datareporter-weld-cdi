@@ -1,0 +1,108 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="formAction">
+		<p:panel>
+			<h:panelGrid columns="3">
+				
+				<p:panel id="panel3" header="Visitors by Country">
+					<p:commandLink oncomplete="zoomGraphWidget.show()" title="Zoom In"
+						update=":zoomGraphDialog, :plotImage">
+						<f:setPropertyActionListener
+							target="#{dataReporterController.statsType}" value="country" />
+						<f:setPropertyActionListener
+							target="#{dataReporterController.dialogHeader}"
+							value="Visitors by Country" />
+						<p:graphicImage value="#{piwikClient.country}"
+							style="width:325px;"></p:graphicImage>
+					</p:commandLink>
+				</p:panel>
+				<p:panel id="panel3A" header="Visitors by Continent">
+					<p:commandLink oncomplete="zoomGraphWidget.show()" title="Zoom In"
+						update=":zoomGraphDialog, :plotImage">
+						<f:setPropertyActionListener
+							target="#{dataReporterController.statsType}" value="continent" />
+						<f:setPropertyActionListener
+							target="#{dataReporterController.dialogHeader}"
+							value="Visitors by Continent" />
+						<p:graphicImage value="#{piwikClient.continent}"
+							style="width:325px;"></p:graphicImage>
+					</p:commandLink>
+				</p:panel>
+				<p:panel id="panel1" header="Page URLs">
+					<p:commandLink oncomplete="zoomGraphWidget.show()" title="Zoom In"
+						update=":zoomGraphDialog, :plotImage">
+						<f:setPropertyActionListener
+							target="#{dataReporterController.statsType}" value="pageUrls" />
+						<f:setPropertyActionListener
+							target="#{dataReporterController.dialogHeader}" value="Page URLs" />
+						<p:graphicImage value="#{piwikClient.pageUrls}"
+							style="width:325px;"></p:graphicImage>
+					</p:commandLink>
+				</p:panel>
+				<p:panel id="panel2" header="Downloads">
+					<p:commandLink oncomplete="zoomGraphWidget.show()" title="Zoom In"
+						update=":zoomGraphDialog, :plotImage">
+						<f:setPropertyActionListener
+							target="#{dataReporterController.statsType}" value="downloads" />
+						<f:setPropertyActionListener
+							target="#{dataReporterController.dialogHeader}" value="Downloads" />
+						<p:graphicImage value="#{piwikClient.downloads}"
+							style="width:325px;"></p:graphicImage>
+					</p:commandLink>
+				</p:panel>
+				<p:panel id="panel4" header="Outlinks">
+					<p:commandLink oncomplete="zoomGraphWidget.show()" title="Zoom In"
+						update=":zoomGraphDialog, :plotImage">
+						<f:setPropertyActionListener
+							target="#{dataReporterController.statsType}" value="outlinks" />
+						<f:setPropertyActionListener
+							target="#{dataReporterController.dialogHeader}" value="Outlinks" />
+						<p:graphicImage value="#{piwikClient.outlinks}"
+							style="width:325px;"></p:graphicImage>
+					</p:commandLink>
+				</p:panel>
+				<p:panel id="panel5" header="Entry Page URLs">
+					<p:commandLink oncomplete="zoomGraphWidget.show()" title="Zoom In"
+						update=":zoomGraphDialog, :plotImage">
+						<f:setPropertyActionListener
+							target="#{dataReporterController.statsType}"
+							value="entryPageUrls" />
+						<f:setPropertyActionListener
+							target="#{dataReporterController.dialogHeader}"
+							value="Entry Page URLs" />
+						<p:graphicImage value="#{piwikClient.entryPageUrls}"
+							style="width:325px;"></p:graphicImage>
+					</p:commandLink>
+				</p:panel>
+				<p:panel id="panel6" header="Page Titles">
+					<p:commandLink oncomplete="zoomGraphWidget.show()" title="Zoom In"
+						update=":zoomGraphDialog, :plotImage">
+						<f:setPropertyActionListener
+							target="#{dataReporterController.statsType}" value="pageTitles" />
+						<f:setPropertyActionListener
+							target="#{dataReporterController.dialogHeader}"
+							value="Page Titles" />
+						<p:graphicImage value="#{piwikClient.pageTitles}"
+							style="width:325px;"></p:graphicImage>
+					</p:commandLink>
+				</p:panel>
+				<p:panel id="panel7" header="Exit Page URLS">
+					<p:commandLink oncomplete="zoomGraphWidget.show()" title="Zoom In"
+						update=":zoomGraphDialog, :plotImage">
+						<f:setPropertyActionListener
+							target="#{dataReporterController.statsType}" value="exitPageUrls" />
+						<f:setPropertyActionListener
+							target="#{dataReporterController.dialogHeader}"
+							value="Exit Page URLS" />
+						<p:graphicImage value="#{piwikClient.exitPageUrls}"
+							style="width:325px;"></p:graphicImage>
+					</p:commandLink>
+				</p:panel>
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+</ui:composition>

@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:outputStylesheet name="css/menu2.css" />
+	
+	<div class="text1">
+		<span>Online Research Database Service</span> supporting Database as a
+		Service
+	</div>
+	<h:panelGrid rendered="true" id="menu">
+	<ul>
+		<li class="nav1" onclick="removeClass(this)"><a href="#">Home</a></li>
+		<li class="nav2" onclick="removeClass(this)"><a href="#">About</a></li>
+		<li class="nav3" onclick="removeClass(this)"><a href="#">Services</a></li>
+		<li class="nav4" onclick="removeClass(this)"><a href="#">Testimonials</a></li>
+		<li class="nav5" onclick="removeClass(this)"><a href="#">Contacts</a></li>
+	</ul>
+	</h:panelGrid>
+	<div class="body6">
+		<h2>Welcome to <span>First Company</span>!</h2>
+	</div>
+
+</ui:composition>

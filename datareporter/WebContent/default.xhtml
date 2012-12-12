@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="WEB-INF/templates/default.xhtml">
+
+	<ui:define name="content">
+		<style type="text/css">
+			table,td,th {
+				vertical-align: top;
+			}
+		</style>
+
+		<ui:include src="/menu/menu1.xhtml"></ui:include>
+		<h:panelGrid columns="1" cellpadding="5">
+			<p:commandButton id="basic" value="Basic" onclick="dlg1.show();"
+				type="button" />
+		</h:panelGrid>
+
+		<!--  h:button refresh the page .. not required -->
+		<h:button id="testButton" onclick="testFunction()" value="Open 2" />
+
+		<h:commandButton id="opener" value="No Refresh 2" />
+
+		<!--  h:commandButton doesn update the whole page -->
+		<h:commandButton id="opener2" onclick="testFunction1()"
+			value="No Refresh" />
+
+		<h:commandButton value="No Refresh" onclick="testFunction1()">
+
+		</h:commandButton>
+
+		<h:form id="form">
+			<p:commandButton value="Ajax Update Tree" id="ajax"
+				update=":form:silosPanel"
+				actionListener="#{databankClient.getSilos}" />
+
+			<p:commandButton value="Ajax Clear Tree" id="ajax2"
+				update=":form:silosPanel, :form:datapackagePanel, :form:itemsPanel"
+				actionListener="#{databankClient.clearSilos}" />
+
+
+			<p:panel id="mainPanel" header="DataBank Browser"
+				style="margin-top:10px;">
+				<h:panelGrid columns="3">
+
+					<p:panel id="silosPanel" header="Silos Archived in DataBank"
+						style="margin-top:10px; vertical-align: top"
+						styleClass="panelAllignment">
+						<h:panelGrid columns="1">
+							<p:tree value="#{databankClient.silosRoot}" var="node" id="tree"
+								dynamic="true" selectionMode="single">
+								<p:ajax event="select" listener="#{databankClient.onSiloNodeSelect}"
+									update=":form:datapackagePanel, :form:itemsPanel" />
+								<p:treeNode id="treeNode1">
+									<h:outputText value="#{node}" id="lblNode1" />
+								</p:treeNode>
+							</p:tree>
+						</h:panelGrid>
+					</p:panel>
+
+					<p:panel id="datapackagePanel"
+						header="Data Packages in #{databankClient.selectedSiloNodeName}"
+						style="margin-top:10px; vertical-align: top"
+						styleClass="panelAllignment">
+						<h:panelGrid columns="1">
+							<p:tree value="#{databankClient.dataPackageNodeRoot}" var="node"
+								id="treeDP" dynamic="true" selectionMode="single">
+								<p:ajax event="select" listener="#{databankClient.onDataPackageNodeSelect}"
+									update=":form:itemsPanel" />
+								<p:treeNode id="treeNode2">
+									<h:outputText value="#{node}" id="lblNode2" />
+								</p:treeNode>
+							</p:tree>
+						</h:panelGrid>
+					</p:panel>
+
+					<p:panel id="itemsPanel"
+						header="Items in #{databankClient.selectedDataPackageNodeName}"
+						style="margin-top:10px; vertical-align: top"
+						styleClass="panelAllignment">
+						<h:panelGrid columns="1">
+							<p:tree value="#{databankClient.itemNodeRoot}" var="node"
+								id="treeItem" dynamic="true" selectionMode="single">
+								<p:treeNode id="treeNode3">
+									<h:outputText value="#{node}" id="lblNode3" />
+								</p:treeNode>
+							</p:tree>
+						</h:panelGrid>
+					</p:panel>
+
+				</h:panelGrid>
+			</p:panel>
+
+			<p:panel id="DataPackagesTree" header="Data Packages"
+				style="margin-top:10px;">
+				<h:panelGrid columns="2">
+
+
+				</h:panelGrid>
+			</p:panel>
+
+		</h:form>
+
+		<p:ajaxStatus
+			style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">
+			<f:facet name="start">
+				<p:graphicImage value="/resources/gfx/ajaxloader1.gif" />
+			</f:facet>
+
+			<f:facet name="complete">
+				<h:outputText value="" />
+			</f:facet>
+		</p:ajaxStatus>
+		<div class="demo">
+
+			<div id="dialog" title="Basic dialog ">
+				<p></p>
+				<form action="testServlet" method="post">
+					First Name: <input type="text" name="first_name" /> <br /> Last
+					Name: <input type="text" name="last_name" /> <input type="submit"
+						value="Submit" />
+				</form>
+
+			</div>
+		</div>
+		<!-- End demo -->
+
+		<p:dialog id="basicDialog" header="Basic Dialog" widgetVar="dlg1">
+			<h:outputText value="Resistance to PrimeFaces is futile!" />
+		</p:dialog>
+	</ui:define>
+
+</ui:composition>

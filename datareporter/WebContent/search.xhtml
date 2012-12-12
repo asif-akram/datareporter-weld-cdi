@@ -1,0 +1,20 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="searchForm">
+		<h:panelGrid columns="2" cellpadding="5">
+			<h:outputLabel value="Silos :" for="siloAuto" />
+			<p:autoComplete id="siloAuto" value="#{autoComplete.silo}"
+				completeMethod="#{autoComplete.completeSilos}" />
+				
+			<h:outputLabel value="DataPackages :" for="dpAuto" />
+			<p:autoComplete id="dpAuto" value="#{autoComplete.dataSet}"
+				completeMethod="#{autoComplete.completeDataSets}" />
+		</h:panelGrid>
+
+	</h:form>
+
+</ui:composition>

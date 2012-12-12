@@ -1,0 +1,401 @@
+package uk.ac.ox.its.damaro.data.reporter.web.piwik.client;
+
+//import java.awt.image.BufferedImage;
+//import java.io.File;
+//import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.Serializable;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import javax.imageio.ImageIO;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+
+import uk.ac.ox.its.damaro.data.reporter.DataReporterController;
+
+
+@Named
+public class PiwikClient implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7367015850051180075L;
+
+	@Inject DataReporterController dataReporterController;
+	
+	//private BufferedImage image = null;;
+	private URIBuilder builder;
+	
+	private HttpClient httpclient = new DefaultHttpClient();
+	
+	private String statsType = "null";
+	
+	public PiwikClient(){
+		builder = new URIBuilder();
+		builder.setScheme("http").setHost("orastats.bodleian.ox.ac.uk").setPath("/index.php").
+		setParameter("idSite", "2").
+		setParameter("token_auth", "DUMMY TOKEN");
+		
+	}
+
+	public StreamedContent getGraphForDialog(){
+		
+		System.out.println("getGraphForDialog: " + dataReporterController.getStatsType());
+		
+		statsType = dataReporterController.getStatsType();
+		if (statsType.equalsIgnoreCase("pageUrls")){
+			return getPageUrls();
+		} else if (statsType.equalsIgnoreCase("country")){
+			return getCountry();
+		} else if (statsType.equalsIgnoreCase("continent")){
+			return getContinent();
+		} else if (statsType.equalsIgnoreCase("outlinks")){
+			return getOutlinks();
+		} else if (statsType.equalsIgnoreCase("downloads")){
+			return getDownloads();
+		} else if (statsType.equalsIgnoreCase("exitPageUrls")){
+			return getExitPageUrls();
+		} else if (statsType.equalsIgnoreCase("entryPageUrls")){
+			return getEntryPageUrls();
+		} else if (statsType.equalsIgnoreCase("pageTitles")){
+			return getPageTitles();
+		} else if (statsType.equalsIgnoreCase("keywords")){
+			return this.getKeywords();
+		} else if (statsType.equalsIgnoreCase("numberOfDistinctKeywords")){
+			return this.getNumberOfDistinctKeywords();
+		} else if (statsType.equalsIgnoreCase("websites")){
+			return this.getWebsites();
+		} else if (statsType.equalsIgnoreCase("numberOfDistinctWebsites")){
+			return this.getNumberOfDistinctWebsites();
+		} else if (statsType.equalsIgnoreCase("numberOfDistinctWebsitesUrls")){
+			return this.getNumberOfDistinctWebsitesUrls();
+		} else if (statsType.equalsIgnoreCase("urlsFromWebsiteId")){
+			return this.getUrlsFromWebsiteId();
+		} else if (statsType.equalsIgnoreCase("campaigns")){
+			return this.getCampaigns();
+		} else if (statsType.equalsIgnoreCase("searchEngines")){
+			return this.getSearchEngines();
+		} else if (statsType.equalsIgnoreCase("searchEnginesFromKeywordId")){
+			return this.getSearchEnginesFromKeywordId();
+		} else if (statsType.equalsIgnoreCase("refererType")){
+			return this.getRefererType();
+		}
+		
+		
+		return getPageUrls();
+	}
+	public StreamedContent getPageUrls(){
+		//builder = new URIBuilder();
+		//builder.setScheme("http").setHost("orastats.bodleian.ox.ac.uk").setPath("/index.php").
+		builder.setParameter("module", "API").
+        //setParameter("method", "Referers.getKeywords").
+        setParameter("method", "ImageGraph.get").
+        setParameter("apiModule", "Actions").
+        setParameter("apiAction", "getPageUrls").
+        //setParameter("idSite", "2").
+        setParameter("period", "range").
+        setParameter("format", "xml").
+        setParameter("filter_limit", "20").
+        setParameter("date", "2011-01-01,today");
+		
+		return getStreamedContent(builder);
+	}
+	
+	public StreamedContent getCountry(){
+		//builder = new URIBuilder();
+		//builder.setScheme("http").setHost("orastats.bodleian.ox.ac.uk").setPath("/index.php").
+		builder.setParameter("module", "API").
+        //setParameter("method", "Referers.getKeywords").
+        setParameter("method", "ImageGraph.get").
+        setParameter("apiModule", "UserCountry").
+        setParameter("apiAction", "getCountry").
+        //setParameter("idSite", "2").
+        setParameter("period", "range").
+        setParameter("format", "xml").
+        setParameter("filter_limit", "20").
+        setParameter("date", "2011-01-01,today");
+		
+		return getStreamedContent(builder);
+	}
+	
+	public StreamedContent getContinent(){
+		//builder = new URIBuilder();
+		//builder.setScheme("http").setHost("orastats.bodleian.ox.ac.uk").setPath("/index.php").
+		builder.setParameter("module", "API").
+        //setParameter("method", "Referers.getKeywords").
+        setParameter("method", "ImageGraph.get").
+        setParameter("apiModule", "UserCountry").
+        setParameter("apiAction", "getContinent").
+        //setParameter("idSite", "2").
+        setParameter("period", "range").
+        setParameter("format", "xml").
+        setParameter("filter_limit", "20").
+        setParameter("date", "2011-01-01,today");
+		
+		return getStreamedContent(builder);
+	}
+	public StreamedContent getOutlinks(){
+		//builder = new URIBuilder();
+		//builder.setScheme("http").setHost("orastats.bodleian.ox.ac.uk").setPath("/index.php").
+		builder.setParameter("module", "API").
+        //setParameter("method", "Referers.getKeywords").
+        setParameter("method", "ImageGraph.get").
+        setParameter("apiModule", "Actions").
+        setParameter("apiAction", "getOutlinks").
+        //setParameter("idSite", "2").
+        setParameter("period", "range").
+        setParameter("format", "xml").
+        setParameter("filter_limit", "20").
+        setParameter("date", "2011-01-01,today");
+		
+		return getStreamedContent(builder);
+	}
+	
+	public StreamedContent getDownloads(){
+		//builder = new URIBuilder();
+		//builder.setScheme("http").setHost("orastats.bodleian.ox.ac.uk").setPath("/index.php").
+		builder.setParameter("module", "API").
+        //setParameter("method", "Referers.getKeywords").
+        setParameter("method", "ImageGraph.get").
+        setParameter("apiModule", "Actions").
+        setParameter("apiAction", "getDownloads").
+        setParameter("idSite", "2").
+        setParameter("period", "range").
+        setParameter("format", "xml").
+        setParameter("filter_limit", "20").
+        setParameter("date", "2011-01-01,today");
+		
+		return getStreamedContent(builder);
+	}
+	
+	public StreamedContent getExitPageUrls(){
+		//builder = new URIBuilder();
+		//builder.setScheme("http").setHost("orastats.bodleian.ox.ac.uk").setPath("/index.php").
+		builder.setParameter("module", "API").
+        //setParameter("method", "Referers.getKeywords").
+        setParameter("method", "ImageGraph.get").
+        setParameter("apiModule", "Actions").
+        setParameter("apiAction", "getExitPageUrls").
+        //setParameter("idSite", "2").
+        setParameter("period", "range").
+        setParameter("format", "xml").
+        setParameter("filter_limit", "20").
+        setParameter("date", "2011-01-01,today");
+		
+		return getStreamedContent(builder);
+	}
+	
+	public StreamedContent getEntryPageUrls(){
+		//builder = new URIBuilder();
+		//builder.setScheme("http").setHost("orastats.bodleian.ox.ac.uk").setPath("/index.php").
+		builder.setParameter("module", "API").
+        //setParameter("method", "Referers.getKeywords").
+        setParameter("method", "ImageGraph.get").
+        setParameter("apiModule", "Actions").
+        setParameter("apiAction", "getEntryPageUrls").
+        //setParameter("idSite", "2").
+        setParameter("period", "range").
+        setParameter("format", "xml").
+        setParameter("filter_limit", "20").
+        setParameter("date", "2011-01-01,today");
+		
+		return getStreamedContent(builder);
+	}
+	
+	public StreamedContent getPageTitles(){
+		//builder = new URIBuilder();
+		//builder.setScheme("http").setHost("orastats.bodleian.ox.ac.uk").setPath("/index.php").
+		builder.setParameter("module", "API").
+        //setParameter("method", "Referers.getKeywords").
+        setParameter("method", "ImageGraph.get").
+        setParameter("apiModule", "Actions").
+        setParameter("apiAction", "getPageTitles").
+        //setParameter("idSite", "2").
+        setParameter("period", "range").
+        setParameter("format", "xml").
+        setParameter("filter_limit", "20").
+        setParameter("date", "2011-01-01,today");
+		
+		return getStreamedContent(builder);
+	}
+	
+	public StreamedContent getKeywords(){
+		builder.setParameter("module", "API").
+        setParameter("method", "ImageGraph.get").
+        setParameter("apiModule", "Referers").
+        setParameter("apiAction", "getKeywords").
+        //setParameter("idSite", "2").
+        setParameter("period", "range").
+        setParameter("format", "xml").
+        setParameter("filter_limit", "20").
+        setParameter("date", "2011-01-01,today");
+		
+		return getStreamedContent(builder);
+	}
+	
+	public StreamedContent getNumberOfDistinctKeywords(){
+		builder.setParameter("module", "API").
+        setParameter("method", "ImageGraph.get").
+        setParameter("apiModule", "Referers").
+        setParameter("apiAction", "getNumberOfDistinctKeywords").
+        //setParameter("idSite", "2").
+        setParameter("period", "range").
+        setParameter("format", "xml").
+        setParameter("filter_limit", "20").
+        setParameter("date", "2011-01-01,today");
+		
+		return getStreamedContent(builder);
+	}
+	
+	public StreamedContent getWebsites(){
+		builder.setParameter("module", "API").
+        setParameter("method", "ImageGraph.get").
+        setParameter("apiModule", "Referers").
+        setParameter("apiAction", "getWebsites").
+        //setParameter("idSite", "2").
+        setParameter("period", "range").
+        setParameter("format", "xml").
+        setParameter("filter_limit", "20").
+        setParameter("date", "2011-01-01,today");
+		
+		return getStreamedContent(builder);
+	}
+	
+	public StreamedContent getNumberOfDistinctWebsites(){
+		builder.setParameter("module", "API").
+        setParameter("method", "ImageGraph.get").
+        setParameter("apiModule", "Referers").
+        setParameter("apiAction", "getNumberOfDistinctWebsites").
+        //setParameter("idSite", "2").
+        setParameter("period", "range").
+        setParameter("format", "xml").
+        setParameter("filter_limit", "20").
+        setParameter("date", "2011-01-01,today");
+		
+		return getStreamedContent(builder);
+	}
+	
+	public StreamedContent getNumberOfDistinctWebsitesUrls(){
+		builder.setParameter("module", "API").
+        setParameter("method", "ImageGraph.get").
+        setParameter("apiModule", "Referers").
+        setParameter("apiAction", "getNumberOfDistinctWebsitesUrls").
+        //setParameter("idSite", "2").
+        setParameter("period", "range").
+        setParameter("format", "xml").
+        setParameter("filter_limit", "20").
+        setParameter("date", "2011-01-01,today");
+		
+		return getStreamedContent(builder);
+	}
+	
+	public StreamedContent getUrlsFromWebsiteId(){
+		builder.setParameter("module", "API").
+        setParameter("method", "ImageGraph.get").
+        setParameter("apiModule", "Referers").
+        setParameter("apiAction", "getUrlsFromWebsiteId").
+        //setParameter("idSite", "2").
+        setParameter("period", "range").
+        setParameter("format", "xml").
+        setParameter("filter_limit", "20").
+        setParameter("date", "2011-01-01,today");
+		
+		return getStreamedContent(builder);
+	}
+	
+	public StreamedContent getCampaigns(){
+		builder.setParameter("module", "API").
+        setParameter("method", "ImageGraph.get").
+        setParameter("apiModule", "Referers").
+        setParameter("apiAction", "getCampaigns").
+        //setParameter("idSite", "2").
+        setParameter("period", "range").
+        setParameter("format", "xml").
+        setParameter("filter_limit", "20").
+        setParameter("date", "2011-01-01,today");
+		
+		return getStreamedContent(builder);
+	}
+	
+	public StreamedContent getSearchEngines(){
+		builder.setParameter("module", "API").
+        setParameter("method", "ImageGraph.get").
+        setParameter("apiModule", "Referers").
+        setParameter("apiAction", "getSearchEngines").
+        //setParameter("idSite", "2").
+        setParameter("period", "range").
+        setParameter("format", "xml").
+        setParameter("filter_limit", "20").
+        setParameter("date", "2011-01-01,today");
+		
+		return getStreamedContent(builder);
+	}
+	
+	public StreamedContent getSearchEnginesFromKeywordId(){
+		builder.setParameter("module", "API").
+        setParameter("method", "ImageGraph.get").
+        setParameter("apiModule", "Referers").
+        setParameter("apiAction", "getSearchEnginesFromKeywordId").
+        //setParameter("idSite", "2").
+        setParameter("period", "range").
+        setParameter("format", "xml").
+        setParameter("filter_limit", "20").
+        setParameter("date", "2011-01-01,today");
+		
+		return getStreamedContent(builder);
+	}
+	
+	public StreamedContent getRefererType(){
+		builder.setParameter("module", "API").
+        setParameter("method", "ImageGraph.get").
+        setParameter("apiModule", "Referers").
+        setParameter("apiAction", "getRefererType").
+        //setParameter("idSite", "2").
+        setParameter("period", "range").
+        setParameter("format", "xml").
+        setParameter("filter_limit", "20").
+        setParameter("date", "2011-01-01,today");
+		
+		return getStreamedContent(builder);
+	}
+	
+	private StreamedContent getStreamedContent(URIBuilder builder){
+		URI uri;
+		HttpGet httpget;
+		HttpResponse responseHttp;
+		
+		try {
+			uri = builder.build();
+			
+			httpget = new HttpGet(uri);
+			System.out.println(httpget.getURI());
+			
+			responseHttp = httpclient.execute(httpget);
+			//image = ImageIO.read(responseHttp.getEntity().getContent());
+            //ImageIO.write(image, "png",new File("/opt/out.png"));
+            
+            //File chartFile = new File("/opt/out.png");
+            //dbImage = new DefaultStreamedContent(new FileInputStream(chartFile), "image/png");
+            return  new DefaultStreamedContent(responseHttp.getEntity().getContent(), "image/png");
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+}
